@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Button } from "@/components/ui/button";
@@ -54,7 +53,7 @@ const Workflow = () => {
   const { toast } = useToast();
 
   // Filter state
-  const [jobFilter, setJobFilter] = useState<string>("");
+  const [jobFilter, setJobFilter] = useState<string>("all"); // Changed default to "all" instead of empty string
   
   // Initialize columns from application stages
   const initialColumns = applicationStages.map((stage) => ({
@@ -69,11 +68,11 @@ const Workflow = () => {
   const [columns, setColumns] = useState<Column[]>(initialColumns);
   
   // Get filtered candidates based on jobFilter
-  const filteredCandidateIds = jobFilter
-    ? candidates
+  const filteredCandidateIds = jobFilter === "all"
+    ? candidates.map((c) => c.id)
+    : candidates
         .filter((c) => c.jobId.toString() === jobFilter)
-        .map((c) => c.id)
-    : candidates.map((c) => c.id);
+        .map((c) => c.id);
 
   // Filter columns to only show candidates that match the jobFilter
   const filteredColumns = columns.map((column) => ({
@@ -153,7 +152,7 @@ const Workflow = () => {
               <SelectValue placeholder="Filter by job" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Jobs</SelectItem>
+              <SelectItem value="all">All Jobs</SelectItem> {/* Changed value from empty string to "all" */}
               {jobs.map((job) => (
                 <SelectItem key={job.id} value={job.id.toString()}>
                   {job.title}
