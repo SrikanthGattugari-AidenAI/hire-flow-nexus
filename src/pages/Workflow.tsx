@@ -53,7 +53,7 @@ import {
   Bot
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { candidates, jobs, applicationStages, users } from "@/data/mockData";
+import { candidates as initialCandidates, jobs, applicationStages, users } from "@/data/mockData";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Stage {
@@ -111,6 +111,8 @@ interface Column {
   color: string;
   candidateIds: number[];
 }
+
+const candidates: Candidate[] = initialCandidates.map(c => ({ ...c }));
 
 const Workflow = () => {
   const { toast } = useToast();
@@ -314,7 +316,7 @@ const Workflow = () => {
   };
 
   const showCandidateDetails = (candidateId: number) => {
-    const candidate = candidates.find((c) => c.id === candidateId);
+    const candidate = candidates.find((c) => c.id === candidateId) as Candidate;
     if (candidate) {
       if (showAIFeatures) {
         candidate.aiScore = Math.floor(Math.random() * 30) + 70;
