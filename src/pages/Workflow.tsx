@@ -54,7 +54,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { candidates, jobs, applicationStages, users } from "@/data/mockData";
-import { useMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Stage {
   id: number;
@@ -75,6 +75,34 @@ interface Candidate {
   tags: string[];
   aiScore?: number;
   fitPercentage?: number;
+  resume?: {
+    url: string;
+    summary: string;
+    experience: {
+      company: string;
+      position: string;
+      duration: string;
+      description: string;
+    }[];
+    education: {
+      institution: string;
+      degree: string;
+      year: string;
+    }[];
+    skills: string[];
+  };
+  notes?: {
+    user: any;
+    date: string;
+    content: string;
+  }[];
+  interviews?: {
+    id: number;
+    date: string;
+    time: string;
+    type: string;
+    interviewers: any[];
+  }[];
 }
 
 interface Column {
@@ -86,7 +114,7 @@ interface Column {
 
 const Workflow = () => {
   const { toast } = useToast();
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
 
   const [jobFilter, setJobFilter] = useState<string>("all");
   const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
@@ -219,7 +247,7 @@ const Workflow = () => {
 
     toast({
       title: "Stage Added",
-      description: `"${newStageName}" has been added to your workflow.`,
+      description: `"${newStageName}" has been added to your workflow.",
     });
   };
 
