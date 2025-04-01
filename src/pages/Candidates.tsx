@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -38,7 +37,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Search, Filter, Mail, Phone, FileText } from "lucide-react";
-import { candidates, jobs, applicationStages } from "@/data/mockData";
+import { candidates, jobs, applicationStages, users } from "@/data/mockData";
 
 const Candidates = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -49,7 +48,6 @@ const Candidates = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [showCandidateProfile, setShowCandidateProfile] = useState<number | null>(null);
 
-  // Extract all unique tags from candidates
   const allTags = Array.from(
     new Set(candidates.flatMap((candidate) => candidate.tags))
   );
@@ -331,7 +329,6 @@ const Candidates = () => {
         </Card>
       )}
       
-      {/* Candidate Profile Dialog */}
       {selectedCandidate && (
         <Dialog open={!!showCandidateProfile} onOpenChange={(open) => !open && setShowCandidateProfile(null)}>
           <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
@@ -343,7 +340,6 @@ const Candidates = () => {
             </DialogHeader>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Left Column - Basic Info */}
               <div>
                 <div className="text-center mb-4">
                   <Avatar className="h-24 w-24 mx-auto">
@@ -401,7 +397,6 @@ const Candidates = () => {
                 </div>
               </div>
               
-              {/* Right Column - Details */}
               <div className="md:col-span-2">
                 <Tabs defaultValue="resume">
                   <TabsList className="grid grid-cols-4 mb-4">

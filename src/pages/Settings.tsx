@@ -28,6 +28,8 @@ import {
 } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
+import { Plus } from "lucide-react";
 import { users } from "@/data/mockData";
 
 const Settings = () => {
