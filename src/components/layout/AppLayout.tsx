@@ -12,7 +12,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 overflow-hidden">
       <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
       
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -21,7 +21,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         <main 
           className={cn(
             "flex-1 overflow-y-auto transition-all duration-300", 
-            sidebarOpen ? "ml-0 md:ml-64" : "ml-0"
+            sidebarOpen ? "md:ml-64" : "ml-0"
           )}
         >
           <div className="container mx-auto px-4 py-8">

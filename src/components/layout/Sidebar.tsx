@@ -12,6 +12,7 @@ import {
   Settings,
   ExternalLink,
   ChevronDown,
+  ChevronLeft,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -76,80 +77,98 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
   const location = useLocation();
   
   return (
-    <div
-      className={cn(
-        "fixed inset-y-0 left-0 z-20 w-64 bg-white shadow-lg transition-transform duration-300 md:translate-x-0", 
-        open ? "translate-x-0" : "-translate-x-full"
-      )}
-    >
-      <div className="flex flex-col h-full">
-        <div className="flex items-center h-16 px-6 border-b border-gray-200">
-          <Link to="/" className="flex items-center">
-            <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center text-white font-bold">
-              HR
+    <>
+      <div
+        className={cn(
+          "fixed inset-y-0 left-0 z-20 w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out md:translate-x-0", 
+          open ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
+        <div className="flex flex-col h-full">
+          <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
+            <Link to="/dashboard" className="flex items-center">
+              <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center text-white font-bold">
+                HR
+              </div>
+              <span className="ml-3 text-xl font-semibold">HireFlow</span>
+            </Link>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setOpen(false)} 
+              className="md:hidden"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </Button>
+          </div>
+          
+          <div className="flex-1 overflow-y-auto p-3 space-y-1">
+            <NavItem
+              icon={LayoutDashboard}
+              label="Dashboard"
+              href="/dashboard"
+              active={location.pathname === "/dashboard"}
+            />
+            <NavItem
+              icon={Briefcase}
+              label="Jobs"
+              href="/jobs"
+              active={location.pathname === "/jobs"}
+            />
+            <NavItem
+              icon={Users}
+              label="Candidates"
+              href="/candidates"
+              active={location.pathname === "/candidates"}
+            />
+            <NavItem
+              icon={KanbanSquare}
+              label="Workflow"
+              href="/workflow"
+              active={location.pathname === "/workflow"}
+            />
+            <NavItem
+              icon={MessageSquare}
+              label="Messages"
+              href="/messages"
+              active={location.pathname === "/messages"}
+            />
+            <NavItem
+              icon={Settings}
+              label="Settings"
+              href="/settings"
+              active={location.pathname.startsWith("/settings")}
+              subItems={[
+                { label: "Profile", href: "/settings/profile" },
+                { label: "Notifications", href: "/settings/notifications" },
+                { label: "Company", href: "/settings/company" },
+              ]}
+            />
+          </div>
+          
+          <div className="p-3 border-t border-gray-200">
+            <Button variant="outline" className="w-full justify-start" asChild>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Help Center
+              </a>
+            </Button>
+            <div className="mt-4 px-4 py-2 bg-gray-100 rounded-md">
+              <p className="text-sm font-medium">HireFlow Nexus</p>
+              <p className="text-xs text-muted-foreground">v1.0.0</p>
             </div>
-            <span className="ml-3 text-xl font-semibold">HireFlow</span>
-          </Link>
-        </div>
-        
-        <div className="flex-1 overflow-y-auto p-3 space-y-1">
-          <NavItem
-            icon={LayoutDashboard}
-            label="Dashboard"
-            href="/"
-            active={location.pathname === "/"}
-          />
-          <NavItem
-            icon={Briefcase}
-            label="Jobs"
-            href="/jobs"
-            active={location.pathname === "/jobs"}
-          />
-          <NavItem
-            icon={Users}
-            label="Candidates"
-            href="/candidates"
-            active={location.pathname === "/candidates"}
-          />
-          <NavItem
-            icon={KanbanSquare}
-            label="Workflow"
-            href="/workflow"
-            active={location.pathname === "/workflow"}
-          />
-          <NavItem
-            icon={MessageSquare}
-            label="Messages"
-            href="/messages"
-            active={location.pathname === "/messages"}
-          />
-          <NavItem
-            icon={Settings}
-            label="Settings"
-            href="/settings"
-            active={location.pathname.startsWith("/settings")}
-            subItems={[
-              { label: "Profile", href: "/settings/profile" },
-              { label: "Notifications", href: "/settings/notifications" },
-              { label: "Company", href: "/settings/company" },
-            ]}
-          />
-        </div>
-        
-        <div className="p-3 border-t border-gray-200">
-          <Button variant="outline" className="w-full justify-start" asChild>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Help Center
-            </a>
-          </Button>
-          <div className="mt-4 px-4 py-2 bg-gray-100 rounded-md">
-            <p className="text-sm font-medium">HireFlow Nexus</p>
-            <p className="text-xs text-muted-foreground">v1.0.0</p>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Background overlay for mobile when sidebar is open */}
+      {open && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
+          onClick={() => setOpen(false)}
+        />
+      )}
+    </>
   );
 };
 

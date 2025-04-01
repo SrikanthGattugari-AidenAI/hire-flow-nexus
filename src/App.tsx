@@ -12,6 +12,7 @@ import Workflow from "./pages/Workflow";
 import Messages from "./pages/Messages";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import Index from "./pages/Index";
 
 const queryClient = new QueryClient();
 
@@ -22,7 +23,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<AppLayout><Dashboard /></AppLayout>} />
+          <Route path="/" element={<Index />} />
+          <Route path="/dashboard" element={<AppLayout><Dashboard /></AppLayout>} />
           <Route path="/jobs" element={<AppLayout><Jobs /></AppLayout>} />
           <Route path="/candidates" element={<AppLayout><Candidates /></AppLayout>} />
           <Route path="/workflow" element={<AppLayout><Workflow /></AppLayout>} />
